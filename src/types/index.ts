@@ -14,6 +14,45 @@ export interface Mentor {
   bio?: string;
 }
 
+export interface MusicTeacher {
+  id: string;
+  name: string;
+  location: string;
+  specialization: string;
+  rating: number;
+  reviewCount: number;
+  price: number;
+  currency: string;
+  profileImage?: string;
+  isVerified: boolean;
+  isOnline: boolean;
+  firstLessonFree: boolean;
+}
+
+export interface ContentInterest {
+  id: string;
+  name: string;
+  category: string;
+  icon: string;
+}
+
+export interface MentorService {
+  id: string;
+  name: string;
+  description: string;
+  basePrice: number;
+  currency: string;
+  pricePerMinute?: number;
+  isActive: boolean;
+}
+
+export interface ProfileSetupData {
+  interests: string[];
+  mentorServices: MentorService[];
+  isMentor: boolean;
+  followerCount: number;
+}
+
 export interface ReviewRequest {
   id: string;
   mentorId: string;
@@ -34,6 +73,7 @@ export interface Review {
 export type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
+  ProfileSetup: undefined;
   Main: undefined;
 };
 

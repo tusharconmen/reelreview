@@ -1,4 +1,4 @@
-import { Mentor, User } from '../types';
+import { Mentor, User, MusicTeacher, ContentInterest, MentorService } from '../types';
 
 export const dummyUser: User = {
   id: '1',
@@ -55,5 +55,154 @@ export const dummyMentors: Mentor[] = [
     followers: 31200,
     profileImage: 'https://via.placeholder.com/150',
     bio: 'Music producer and audio engineer',
+  },
+];
+
+export const dummyMusicTeachers: MusicTeacher[] = [
+  {
+    id: '1',
+    name: 'Sergio',
+    location: 'Paris 18e',
+    specialization: 'Guitare acoustique',
+    rating: 4.9,
+    reviewCount: 31,
+    price: 40,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: false,
+    firstLessonFree: true,
+  },
+  {
+    id: '2',
+    name: 'Farah',
+    location: 'Visio',
+    specialization: 'Kanun, Musiques arabes',
+    rating: 5.0,
+    reviewCount: 12,
+    price: 50,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: true,
+    firstLessonFree: true,
+  },
+  {
+    id: '3',
+    name: 'Thibaut',
+    location: 'Paris 3e',
+    specialization: 'Guitare électrique, basse',
+    rating: 5.0,
+    reviewCount: 21,
+    price: 35,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: false,
+    firstLessonFree: true,
+  },
+  {
+    id: '4',
+    name: 'Olivia',
+    location: 'Neuilly-sur-Seine',
+    specialization: 'Solfège, Piano',
+    rating: 4.9,
+    reviewCount: 15,
+    price: 60,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: false,
+    firstLessonFree: true,
+  },
+  {
+    id: '5',
+    name: 'Marco',
+    location: 'Paris 11e',
+    specialization: 'Violon, Alto',
+    rating: 4.8,
+    reviewCount: 28,
+    price: 45,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: false,
+    firstLessonFree: true,
+  },
+  {
+    id: '6',
+    name: 'Sophie',
+    location: 'Visio',
+    specialization: 'Chant, Technique vocale',
+    rating: 4.9,
+    reviewCount: 19,
+    price: 55,
+    currency: '€',
+    profileImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',
+    isVerified: true,
+    isOnline: true,
+    firstLessonFree: true,
+  },
+];
+
+export const contentInterests: ContentInterest[] = [
+  // Video Content
+  { id: '1', name: 'Video Editing', category: 'Video', icon: 'videocam' },
+  { id: '2', name: 'Cinematography', category: 'Video', icon: 'camera' },
+  { id: '3', name: 'YouTube', category: 'Video', icon: 'logo-youtube' },
+  { id: '4', name: 'TikTok', category: 'Video', icon: 'musical-notes' },
+  { id: '5', name: 'Instagram Reels', category: 'Video', icon: 'logo-instagram' },
+  { id: '6', name: 'Live Streaming', category: 'Video', icon: 'radio' },
+  
+  // Photography
+  { id: '7', name: 'Portrait Photography', category: 'Photography', icon: 'person' },
+  { id: '8', name: 'Landscape Photography', category: 'Photography', icon: 'mountain' },
+  { id: '9', name: 'Street Photography', category: 'Photography', icon: 'walk' },
+  { id: '10', name: 'Fashion Photography', category: 'Photography', icon: 'shirt' },
+  { id: '11', name: 'Product Photography', category: 'Photography', icon: 'cube' },
+  { id: '12', name: 'Wedding Photography', category: 'Photography', icon: 'heart' },
+  
+  // Writing & Content
+  { id: '13', name: 'Blog Writing', category: 'Writing', icon: 'document-text' },
+  { id: '14', name: 'Copywriting', category: 'Writing', icon: 'create' },
+  { id: '15', name: 'Social Media', category: 'Writing', icon: 'share-social' },
+  { id: '16', name: 'Content Strategy', category: 'Writing', icon: 'trending-up' },
+  { id: '17', name: 'SEO Writing', category: 'Writing', icon: 'search' },
+  { id: '18', name: 'Technical Writing', category: 'Writing', icon: 'code-slash' },
+  
+  // Design
+  { id: '19', name: 'Graphic Design', category: 'Design', icon: 'color-palette' },
+  { id: '20', name: 'UI/UX Design', category: 'Design', icon: 'phone-portrait' },
+  { id: '21', name: 'Logo Design', category: 'Design', icon: 'diamond' },
+  { id: '22', name: 'Brand Identity', category: 'Design', icon: 'business' },
+  { id: '23', name: 'Web Design', category: 'Design', icon: 'globe' },
+  { id: '24', name: 'Illustration', category: 'Design', icon: 'brush' },
+  
+  // Audio & Music
+  { id: '25', name: 'Music Production', category: 'Audio', icon: 'musical-notes' },
+  { id: '26', name: 'Podcast Creation', category: 'Audio', icon: 'mic' },
+  { id: '27', name: 'Voice Over', category: 'Audio', icon: 'volume-high' },
+  { id: '28', name: 'Audio Editing', category: 'Audio', icon: 'cut' },
+  { id: '29', name: 'Sound Design', category: 'Audio', icon: 'headset' },
+  { id: '30', name: 'Music Composition', category: 'Audio', icon: 'piano' },
+];
+
+export const mentorServices: MentorService[] = [
+  {
+    id: '1',
+    name: 'Reel Review',
+    description: 'Detailed feedback on your reels including content, editing, timing, and engagement optimization',
+    basePrice: 15,
+    currency: '$',
+    isActive: true,
+  },
+  {
+    id: '2',
+    name: 'Video Call Consultation',
+    description: 'Live video call for profile review, content creation advice, strategy planning, and personalized guidance',
+    basePrice: 30,
+    currency: '$',
+    pricePerMinute: 2,
+    isActive: true,
   },
 ];

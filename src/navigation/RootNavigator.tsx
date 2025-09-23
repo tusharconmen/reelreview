@@ -5,12 +5,13 @@ import { useAuth } from '../context/AuthContext';
 import { RootStackParamList } from '../types';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
+import { ProfileSetupScreen } from '../screens/ProfileSetupScreen';
 import MainTabNavigator from './MainTabNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isProfileSetupComplete } = useAuth();
 
   return (
     <NavigationContainer>
@@ -25,7 +26,13 @@ const RootNavigator: React.FC = () => {
             <Stack.Screen name="Login" component={LoginScreen} />
           </>
         ) : (
-          <Stack.Screen name="Main" component={MainTabNavigator} />
+          <>
+            {!isProfileSetupComplete ? (
+              <Stack.Screen name="ProfileSetup" component={ProfileSetupScreen} />
+            ) : (
+              <Stack.Screen name="Main" component={MainTabNavigator} />
+            )}
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

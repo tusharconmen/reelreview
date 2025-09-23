@@ -7,6 +7,9 @@ interface AuthContextType {
   login: (userData: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
+  isProfileSetupComplete: boolean;
+  // eslint-disable-next-line no-unused-vars
+  completeProfileSetup: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,6 +28,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isProfileSetupComplete, setIsProfileSetupComplete] = useState(false);
 
   const login = (userData: User) => {
     setUser(userData);
@@ -32,6 +36,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    setIsProfileSetupComplete(false);
+  };
+
+  const completeProfileSetup = () => {
+    setIsProfileSetupComplete(true);
   };
 
   const value = {
@@ -39,6 +48,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     logout,
     isAuthenticated: !!user,
+    isProfileSetupComplete,
+    completeProfileSetup,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

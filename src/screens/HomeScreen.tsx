@@ -1,36 +1,68 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import { MentorCard } from '../components/Card';
-import { dummyMentors } from '../data/dummyData';
-import { Mentor } from '../types';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { TeacherCard } from '../components/TeacherCard';
+import { FilterButtons } from '../components/FilterButtons';
+import { dummyMusicTeachers } from '../data/dummyData';
+import { MusicTeacher } from '../types';
 
 const HomeScreen: React.FC = () => {
-  const renderMentor = ({ item }: { item: Mentor }) => (
-    <MentorCard
-      name={item.name}
-      category={item.category}
-      followers={item.followers}
-      profileImage={item.profileImage}
-      onPress={() => {
-        // TODO: Navigate to mentor profile
-        // For now, just log the mentor name
+  const [activeFilter, setActiveFilter] = useState<string>('');
 
-        console.log('Mentor pressed:', item.name);
+  const filters = [
+    'Format du cours',
+    'Tarif',
+    'Niveau',
+    'Temps',
+    'Disponibilité',
+  ];
+
+  const renderTeacher = ({ item }: { item: MusicTeacher }) => (
+    <TeacherCard
+      teacher={item}
+      onPress={() => {
+        console.log('Teacher pressed:', item.name);
+      }}
+      onFavoritePress={() => {
+        console.log('Favorite pressed for:', item.name);
       }}
     />
   );
 
+  const handleFilterPress = (filter: string) => {
+    setActiveFilter(activeFilter === filter ? '' : filter);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Discover Mentors</Text>
-        <Text style={styles.subtitle}>Find mentors to review your content</Text>
+        <TouchableOpacity style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#000000" />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Musique - Paris</Text>
+        </View>
+        <View style={styles.placeholder} />
+      </View>
+
+      <FilterButtons
+        filters={filters}
+        activeFilter={activeFilter}
+        onFilterPress={handleFilterPress}
+      />
+
+      <View style={styles.resultsHeader}>
+        <Text style={styles.resultsText}>
+          {dummyMusicTeachers.length} professeurs disponibles
+        </Text>
       </View>
 
       <FlatList
-        data={dummyMentors}
-        renderItem={renderMentor}
+        data={dummyMusicTeachers}
+        renderItem={renderTeacher}
         keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={styles.row}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
       />
@@ -41,27 +73,46 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: '#FFFFFF',
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 20,
+    paddingVertical: 16,
     backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E9ECEF',
+  },
+  backButton: {
+    padding: 4,
+  },
+  titleContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   title: {
-    fontSize: 28,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#212529',
-    marginBottom: 4,
+    color: '#000000',
   },
-  subtitle: {
+  placeholder: {
+    width: 32,
+  },
+  resultsHeader: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#FFFFFF',
+  },
+  resultsText: {
     fontSize: 16,
-    color: '#6C757D',
+    color: '#000000',
+    fontWeight: '500',
   },
   listContainer: {
-    paddingVertical: 8,
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+  },
+  row: {
+    justifyContent: 'space-between',
   },
 });
 
